@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sand-50: #FCFAF8;
+  --color-sand-100: #F8F5F2;
+  --color-sand-200: #F3E7E3;
+  --color-blush-100: #F7D8D3;
+  --color-blush-200: #EFB8B2;
+  --color-blush-300: #E4A9A1;
+  --color-blush-400: #D68F86;
+  --color-sage-100: #EAF3ED;
+  --color-sage-200: #D5E7DB;
+  --color-sage-300: #B7CFBE;
+  --color-sage-400: #8DAD98;
+  --color-mist-100: #EAF3FB;
+  --color-mist-200: #CFE0EF;
+  --color-mist-300: #A7C7E7;
+  --color-ink-500: #4B5563;
+  --color-ink-700: #374151;
+  --color-ink-900: #24303C;
+
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+
+  --shadow-soft: 0 24px 80px rgba(82, 86, 92, 0.10);
+  --shadow-card: 0 18px 48px rgba(36, 48, 60, 0.08);
+}
+
+@layer utilities {
+  .bg-soft-grid {
+    background-image: linear-gradient(rgba(183, 207, 190, 0.20) 1px, transparent 1px), linear-gradient(90deg, rgba(183, 207, 190, 0.20) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(239, 184, 178, 0.22), transparent 28%),
+    radial-gradient(circle at top right, rgba(167, 199, 231, 0.18), transparent 24%),
+    linear-gradient(180deg, #fcfaf8 0%, #f8f5f2 34%, #ffffff 100%);
+  color: #4b5563;
+}
