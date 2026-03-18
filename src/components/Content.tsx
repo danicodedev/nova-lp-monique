@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
-import { Play } from 'lucide-react';
+import { Play, X } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function Content() {
   const reels = [
@@ -16,6 +17,53 @@ export default function Content() {
       bg: "bg-sage-100"
     }
   ];
+
+  const [activeReelLink, setActiveReelLink] = useState<string | null>(null);
+  const [isReelLoading, setIsReelLoading] = useState(false);
+  const [isReelHintVisible, setIsReelHintVisible] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  const activeEmbedUrl = useMemo(() => {
+    if (!activeReelLink) return null;
+    try {
+      const url = new URL(activeReelLink);
+      const parts = url.pathname.split('/').filter(Boolean);
+      const type = parts[0];
+      const code = parts[1];
+      if (!type || !code) return activeReelLink;
+      if (type !== 'p' && type !== 'reel' && type !== 'tv') return activeReelLink;
+      const embedUrl = new URL(`https://www.instagram.com/${type}/${code}/embed/`);
+      embedUrl.searchParams.set('autoplay', '1');
+      return embedUrl.toString();
+    } catch {
+      return activeReelLink;
+    }
+  }, [activeReelLink]);
+
+  useEffect(() => {
+    if (!activeEmbedUrl) return;
+    setIsReelLoading(true);
+    setIsReelHintVisible(false);
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveReelLink(null);
+    };
+
+    const onWindowBlur = () => {
+      if (document.activeElement && document.activeElement === iframeRef.current) {
+        setIsReelHintVisible(false);
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('blur', onWindowBlur);
+    return () => {
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('blur', onWindowBlur);
+    };
+  }, [activeEmbedUrl]);
 
   const articles = [
     {
@@ -53,16 +101,15 @@ export default function Content() {
 
       <div className="grid gap-6 lg:grid-cols-2 mb-10">
         {reels.map((reel, index) => (
-          <motion.a 
+          <motion.button
             key={index}
-            href={reel.link}
-            target="_blank"
-            rel="noreferrer"
+            type="button"
+            onClick={() => setActiveReelLink(reel.link)}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
-            className={`group relative overflow-hidden rounded-[2rem] p-8 shadow-card transition hover:-translate-y-1 ${reel.bg}`}
+            className={`group relative overflow-hidden rounded-[2rem] p-8 text-left shadow-card transition hover:-translate-y-1 ${reel.bg}`}
           >
             <div className="absolute right-6 top-6 rounded-full bg-white/50 p-3 backdrop-blur-sm transition group-hover:bg-white group-hover:scale-110">
               <Play className="h-6 w-6 text-ink-900 fill-ink-900 ml-0.5" />
@@ -70,9 +117,68 @@ export default function Content() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ink-500 mb-4">Assistir Vídeo</p>
             <h3 className="text-2xl font-semibold text-ink-900">{reel.title}</h3>
             <p className="mt-4 text-base leading-7 text-ink-700 max-w-md">{reel.desc}</p>
-          </motion.a>
+          </motion.button>
         ))}
       </div>
+
+      {activeEmbedUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-8"
+          role="dialog"
+          aria-modal="true"
+        >
+          <button
+            type="button"
+            aria-label="Fechar vídeo"
+            onClick={() => setActiveReelLink(null)}
+            className="fixed right-6 top-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+          >
+            <X className="h-6 w-6" />
+          </button>
+
+          <div className="relative flex w-full items-center justify-center">
+            <div className="relative h-[90vh] w-full max-w-[380px] overflow-hidden rounded-[2rem] bg-black shadow-soft sm:max-w-[420px] md:max-w-[520px]">
+              <iframe
+                id="instaFrame"
+                ref={iframeRef}
+                title="Vídeo do Instagram"
+                src={activeEmbedUrl}
+                className="h-full w-full"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowFullScreen
+                onLoad={() => {
+                  window.setTimeout(() => {
+                    setIsReelLoading(false);
+                    setIsReelHintVisible(true);
+                  }, 600);
+                }}
+              />
+
+              {isReelLoading && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black">
+                  <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
+                    Carregando…
+                  </span>
+                </div>
+              )}
+
+              {!isReelLoading && (
+                <div
+                  className={`pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 bg-black/30 text-center text-white transition-opacity duration-500 ${isReelHintVisible ? 'opacity-100' : 'opacity-0'}`}
+                >
+                  <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-600 shadow-lg shadow-emerald-600/30">
+                    <Play className="h-8 w-8 text-white fill-white ml-0.5" />
+                  </div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.22em] drop-shadow-xl bg-black/20 px-4 py-1 rounded-full">
+                    Toque no vídeo para iniciar
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         {articles.map((article, index) => (
