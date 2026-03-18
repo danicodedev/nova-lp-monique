@@ -126,18 +126,22 @@ export default function Content() {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-8"
           role="dialog"
           aria-modal="true"
+          onClick={() => setActiveReelLink(null)}
         >
           <button
             type="button"
             aria-label="Fechar vídeo"
             onClick={() => setActiveReelLink(null)}
-            className="fixed right-6 top-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+            className="fixed right-5 top-5 z-[70] inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
           >
             <X className="h-6 w-6" />
           </button>
 
           <div className="relative flex w-full items-center justify-center">
-            <div className="relative h-[90vh] w-full max-w-[380px] overflow-hidden rounded-[2rem] bg-black shadow-soft sm:max-w-[420px] md:max-w-[520px]">
+            <div
+              className="relative h-[90vh] w-full max-w-[380px] overflow-hidden rounded-[2rem] bg-black shadow-soft sm:max-w-[420px] md:max-w-[520px]"
+              onClick={(event) => event.stopPropagation()}
+            >
               <iframe
                 id="instaFrame"
                 ref={iframeRef}
