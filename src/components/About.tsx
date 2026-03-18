@@ -36,12 +36,13 @@ export default function About() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="space-y-4"
         >
-          <div className="relative h-64 w-full overflow-hidden rounded-[2rem] shadow-card">
+          <div className="relative h-64 w-full overflow-hidden rounded-[2rem] shadow-card" >
             <img 
-              src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=800" 
+              src="\dist\imgs\02.jpeg?auto=format&fit=crop&q=80&w=800" 
               alt="Monique Bacin em atendimento" 
               className="absolute inset-0 h-full w-full object-cover"
               referrerPolicy="no-referrer"
+              style={{ objectPosition: 'center 20%' }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 to-transparent"></div>
             <div className="absolute bottom-6 left-6">
@@ -59,7 +60,7 @@ export default function About() {
                 </div>
                 <div>
                   <p className="font-semibold text-ink-900">Graduação em Terapia Ocupacional</p>
-                  <p className="mt-1 text-sm text-ink-500">Faculdade de Medicina do ABC • 2014 a 2017</p>
+                  <p className="mt-1 text-sm text-ink-500">Faculdade de Medicina do ABC</p>
                 </div>
               </div>
               <div className="flex items-start gap-4 rounded-2xl bg-sage-100 p-5">
