@@ -38,7 +38,7 @@ export default function About() {
         >
           <div className="relative h-64 w-full overflow-hidden rounded-[2rem] shadow-card" >
             <img 
-              src="\dist\imgs\02.jpeg?auto=format&fit=crop&q=80&w=800" 
+              src="/imgs/02.jpeg" 
               alt="Monique Bacin em atendimento" 
               className="absolute inset-0 h-full w-full object-cover"
               referrerPolicy="no-referrer"

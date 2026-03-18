@@ -24,7 +24,7 @@ export default function Hero() {
               <div className="relative flex aspect-[4/5] items-end rounded-[1.5rem] border border-white/70 bg-soft-grid bg-[size:22px_22px] bg-center p-6 overflow-hidden">
                 {/* Placeholder for the uploaded image */}
                 <img 
-                  src="\dist\imgs\01.jpeg?auto=format&fit=crop&q=80&w=800" 
+                  src="/imgs/01.jpeg" 
                   alt="Monique Bacin" 
                   className="absolute inset-0 h-full w-full object-cover mix-blend-multiply opacity-90"
                   referrerPolicy="no-referrer"
