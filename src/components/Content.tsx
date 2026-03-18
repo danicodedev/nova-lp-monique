@@ -3,6 +3,8 @@ import { Play, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function Content() {
+  const youtubeUrl = 'https://www.youtube.com/watch?v=7G6JP5bKRrI';
+
   const reels = [
     {
       title: "Quem sou eu e como trabalho",
@@ -22,6 +24,31 @@ export default function Content() {
   const [isReelLoading, setIsReelLoading] = useState(false);
   const [isReelHintVisible, setIsReelHintVisible] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [isYoutubeOpen, setIsYoutubeOpen] = useState(false);
+
+  const youtubeVideoId = useMemo(() => {
+    try {
+      const url = new URL(youtubeUrl);
+      return url.searchParams.get('v');
+    } catch {
+      return null;
+    }
+  }, [youtubeUrl]);
+
+  const youtubeEmbedUrl = useMemo(() => {
+    if (!youtubeVideoId) return null;
+    const embedUrl = new URL(`https://www.youtube-nocookie.com/embed/${youtubeVideoId}`);
+    embedUrl.searchParams.set('autoplay', '1');
+    embedUrl.searchParams.set('rel', '0');
+    embedUrl.searchParams.set('modestbranding', '1');
+    embedUrl.searchParams.set('playsinline', '1');
+    return embedUrl.toString();
+  }, [youtubeVideoId]);
+
+  const youtubeThumbnailUrl = useMemo(() => {
+    if (!youtubeVideoId) return null;
+    return `https://img.youtube.com/vi/${youtubeVideoId}/hqdefault.jpg`;
+  }, [youtubeVideoId]);
 
   const activeEmbedUrl = useMemo(() => {
     if (!activeReelLink) return null;
@@ -65,6 +92,23 @@ export default function Content() {
     };
   }, [activeEmbedUrl]);
 
+  useEffect(() => {
+    if (!isYoutubeOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsYoutubeOpen(false);
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isYoutubeOpen]);
+
   const articles = [
     {
       tag: "Trajetória",
@@ -93,45 +137,175 @@ export default function Content() {
   ];
 
   return (
-    <section id="conteudo" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
-      <div className="max-w-2xl mb-10">
-        <p className="text-sm font-semibold uppercase tracking-[0.26em] text-blush-400">Conteúdo educativo</p>
-        <h2 className="mt-3 font-display text-4xl text-ink-900 md:text-5xl">Temas que Monique já aborda com clareza, afeto e profundidade.</h2>
-      </div>
+    <>
+      <section id="conteudo" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
+        <div className="max-w-2xl mb-10">
+          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-blush-400">Conteúdo educativo</p>
+          <h2 className="mt-3 font-display text-4xl text-ink-900 md:text-5xl">Temas que Monique já aborda com clareza, afeto e profundidade.</h2>
+        </div>
 
-      <div className="grid gap-6 lg:grid-cols-2 mb-10">
-        {reels.map((reel, index) => (
-          <motion.button
-            key={index}
-            type="button"
-            onClick={() => setActiveReelLink(reel.link)}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            className={`group relative overflow-hidden rounded-[2rem] p-8 text-left shadow-card transition hover:-translate-y-1 ${reel.bg}`}
+        <div className="grid gap-6 lg:grid-cols-2 mb-10">
+          {reels.map((reel, index) => (
+            <motion.button
+              key={index}
+              type="button"
+              onClick={() => setActiveReelLink(reel.link)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className={`group relative overflow-hidden rounded-[2rem] p-8 text-left shadow-card transition hover:-translate-y-1 ${reel.bg}`}
+            >
+              <div className="absolute right-6 top-6 rounded-full bg-white/50 p-3 backdrop-blur-sm transition group-hover:bg-white group-hover:scale-110">
+                <Play className="h-6 w-6 text-ink-900 fill-ink-900 ml-0.5" />
+              </div>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ink-500 mb-4">Assistir Vídeo</p>
+              <h3 className="text-2xl font-semibold text-ink-900">{reel.title}</h3>
+              <p className="mt-4 text-base leading-7 text-ink-700 max-w-md">{reel.desc}</p>
+            </motion.button>
+          ))}
+        </div>
+
+        {activeEmbedUrl && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-8"
+            role="dialog"
+            aria-modal="true"
+            onClick={() => setActiveReelLink(null)}
           >
-            <div className="absolute right-6 top-6 rounded-full bg-white/50 p-3 backdrop-blur-sm transition group-hover:bg-white group-hover:scale-110">
-              <Play className="h-6 w-6 text-ink-900 fill-ink-900 ml-0.5" />
-            </div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ink-500 mb-4">Assistir Vídeo</p>
-            <h3 className="text-2xl font-semibold text-ink-900">{reel.title}</h3>
-            <p className="mt-4 text-base leading-7 text-ink-700 max-w-md">{reel.desc}</p>
-          </motion.button>
-        ))}
-      </div>
+            <button
+              type="button"
+              aria-label="Fechar vídeo"
+              onClick={() => setActiveReelLink(null)}
+              className="fixed right-5 top-5 z-[70] inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
+            >
+              <X className="h-6 w-6" />
+            </button>
 
-      {activeEmbedUrl && (
+            <div className="relative flex w-full items-center justify-center">
+              <div
+                className="relative h-[90vh] w-full max-w-[380px] overflow-hidden rounded-[2rem] bg-black shadow-soft sm:max-w-[420px] md:max-w-[520px]"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <iframe
+                  id="instaFrame"
+                  ref={iframeRef}
+                  title="Vídeo do Instagram"
+                  src={activeEmbedUrl}
+                  className="h-full w-full"
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  onLoad={() => {
+                    window.setTimeout(() => {
+                      setIsReelLoading(false);
+                      setIsReelHintVisible(true);
+                    }, 600);
+                  }}
+                />
+
+                {isReelLoading && (
+                  <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black">
+                    <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
+                    <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
+                      Carregando…
+                    </span>
+                  </div>
+                )}
+
+                {!isReelLoading && (
+                  <div
+                    className={`pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 bg-black/30 text-center text-white transition-opacity duration-500 ${isReelHintVisible ? 'opacity-100' : 'opacity-0'}`}
+                  >
+                    <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-600 shadow-lg shadow-emerald-600/30">
+                      <Play className="h-8 w-8 text-white fill-white ml-0.5" />
+                    </div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.22em] drop-shadow-xl bg-black/20 px-4 py-1 rounded-full">
+                      Toque no vídeo para iniciar
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {articles.map((article, index) => (
+            <motion.article 
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="rounded-[2rem] bg-white p-6 shadow-card"
+            >
+              <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${article.tagColor}`}>{article.tag}</p>
+              <h3 className="mt-4 text-xl font-semibold text-ink-900">{article.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-ink-500">{article.desc}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section id="na-midia" className="mx-auto max-w-7xl px-6 pb-14 lg:px-8">
+        <div className="rounded-[2.25rem] border border-white/80 bg-gradient-to-br from-sand-50 via-white to-mist-100 p-8 shadow-card md:p-12">
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-mist-400">Na mídia</p>
+              <h2 className="mt-3 font-display text-4xl text-ink-900 md:text-5xl">Participação no Plantão Doutor TV</h2>
+              <p className="mt-5 max-w-xl text-base leading-7 text-ink-500 md:text-lg">
+                Monique participou do Plantão Doutor TV, da Band Vale, falando sobre como a Terapia Ocupacional pode contribuir para a qualidade de vida no TEA.
+              </p>
+            </div>
+
+            <motion.button
+              type="button"
+              onClick={() => setIsYoutubeOpen(true)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="group relative overflow-hidden rounded-[2rem] bg-ink-900 shadow-soft"
+            >
+              <div className="relative aspect-video w-full">
+                {youtubeThumbnailUrl && (
+                  <img
+                    src={youtubeThumbnailUrl}
+                    alt="Prévia do vídeo no YouTube"
+                    className="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:opacity-100"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/35 via-black/20 to-black/50" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-600 shadow-lg shadow-emerald-600/30 transition group-hover:bg-emerald-500">
+                    <Play className="h-8 w-8 text-white fill-white ml-0.5" />
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6 text-left">
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-white/70">Assistir no YouTube</p>
+                <p className="mt-2 text-lg font-semibold text-white">TEA: como a Terapia Ocupacional pode melhorar a qualidade de vida</p>
+                <p className="mt-3 text-sm leading-6 text-white/70">Clique para abrir em tela cheia.</p>
+              </div>
+            </motion.button>
+          </div>
+        </div>
+      </section>
+
+      {isYoutubeOpen && youtubeEmbedUrl && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-8"
           role="dialog"
           aria-modal="true"
-          onClick={() => setActiveReelLink(null)}
+          onClick={() => setIsYoutubeOpen(false)}
         >
           <button
             type="button"
             aria-label="Fechar vídeo"
-            onClick={() => setActiveReelLink(null)}
+            onClick={() => setIsYoutubeOpen(false)}
             className="fixed right-5 top-5 z-[70] inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition hover:bg-white/20"
           >
             <X className="h-6 w-6" />
@@ -139,67 +313,22 @@ export default function Content() {
 
           <div className="relative flex w-full items-center justify-center">
             <div
-              className="relative h-[90vh] w-full max-w-[380px] overflow-hidden rounded-[2rem] bg-black shadow-soft sm:max-w-[420px] md:max-w-[520px]"
+              className="relative w-full max-w-5xl overflow-hidden rounded-[2rem] bg-black shadow-soft"
               onClick={(event) => event.stopPropagation()}
             >
-              <iframe
-                id="instaFrame"
-                ref={iframeRef}
-                title="Vídeo do Instagram"
-                src={activeEmbedUrl}
-                className="h-full w-full"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                allowFullScreen
-                onLoad={() => {
-                  window.setTimeout(() => {
-                    setIsReelLoading(false);
-                    setIsReelHintVisible(true);
-                  }, 600);
-                }}
-              />
-
-              {isReelLoading && (
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 bg-black">
-                  <div className="h-10 w-10 animate-spin rounded-full border-2 border-white/20 border-t-white" />
-                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                    Carregando…
-                  </span>
-                </div>
-              )}
-
-              {!isReelLoading && (
-                <div
-                  className={`pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 bg-black/30 text-center text-white transition-opacity duration-500 ${isReelHintVisible ? 'opacity-100' : 'opacity-0'}`}
-                >
-                  <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-600 shadow-lg shadow-emerald-600/30">
-                    <Play className="h-8 w-8 text-white fill-white ml-0.5" />
-                  </div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.22em] drop-shadow-xl bg-black/20 px-4 py-1 rounded-full">
-                    Toque no vídeo para iniciar
-                  </p>
-                </div>
-              )}
+              <div className="aspect-video w-full">
+                <iframe
+                  title="Vídeo do YouTube"
+                  src={youtubeEmbedUrl}
+                  className="h-full w-full"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
             </div>
           </div>
         </div>
       )}
-
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {articles.map((article, index) => (
-          <motion.article 
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            className="rounded-[2rem] bg-white p-6 shadow-card"
-          >
-            <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${article.tagColor}`}>{article.tag}</p>
-            <h3 className="mt-4 text-xl font-semibold text-ink-900">{article.title}</h3>
-            <p className="mt-4 text-sm leading-7 text-ink-500">{article.desc}</p>
-          </motion.article>
-        ))}
-      </div>
-    </section>
+    </>
   );
 }

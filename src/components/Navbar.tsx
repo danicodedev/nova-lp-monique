@@ -5,7 +5,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 border-b border-white/60 bg-white/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="#topo" className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blush-200 to-sage-300 text-sm font-extrabold text-white shadow-card">MB</div>
+          {/* <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blush-200 to-sage-300 text-sm font-extrabold text-white shadow-card">MB</div> */}
           <div>
             <p className="text-sm font-semibold text-ink-900">Monique Bacin</p>
             <p className="text-xs text-ink-500">Terapia Ocupacional</p>
