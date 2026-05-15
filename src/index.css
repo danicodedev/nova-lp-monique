@@ -1,35 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-sand-50: #FCFAF8;
-  --color-sand-100: #F8F5F2;
-  --color-sand-200: #F3E7E3;
-  --color-blush-100: #F7D8D3;
-  --color-blush-200: #EFB8B2;
-  --color-blush-300: #E4A9A1;
-  --color-blush-400: #D68F86;
-  --color-sage-100: #EAF3ED;
-  --color-sage-200: #D5E7DB;
-  --color-sage-300: #B7CFBE;
-  --color-sage-400: #8DAD98;
-  --color-mist-100: #EAF3FB;
-  --color-mist-200: #CFE0EF;
-  --color-mist-300: #A7C7E7;
-  --color-ink-500: #4B5563;
-  --color-ink-700: #374151;
-  --color-ink-900: #24303C;
+  /* Cream / Light warm tones for backgrounds */
+  --color-cream-50: #FFFFFF;
+  --color-cream-100: #FDFBF7;
+  --color-cream-200: #FAF6F0;
+  --color-cream-300: #F5EBE1;
+
+  /* Terracotta / Warm Copper */
+  --color-terra-100: #FADFCC;
+  --color-terra-400: #D87B56;
+  --color-terra-500: #C86C45;
+  --color-terra-600: #A85736;
+
+  /* Wine / Plum / Dark tones */
+  --color-wine-500: #7A4656;
+  --color-wine-600: #5C3241;
+  --color-wine-700: #4A2331;
+  --color-wine-800: #3D1C25;
+  --color-wine-900: #2D1A22;
+
+  /* Ink / Text tones */
+  --color-ink-500: #5E5357;
+  --color-ink-600: #4A3E43;
+  --color-ink-700: #3A2E33;
+  --color-ink-900: #22161A;
 
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Fraunces", ui-serif, Georgia, serif;
 
-  --shadow-soft: 0 24px 80px rgba(82, 86, 92, 0.10);
-  --shadow-card: 0 18px 48px rgba(36, 48, 60, 0.08);
+  --shadow-soft: 0 24px 80px rgba(45, 26, 34, 0.12);
+  --shadow-card: 0 18px 48px rgba(45, 26, 34, 0.06);
 }
 
 @layer utilities {
-  .bg-soft-grid {
-    background-image: linear-gradient(rgba(183, 207, 190, 0.20) 1px, transparent 1px), linear-gradient(90deg, rgba(183, 207, 190, 0.20) 1px, transparent 1px);
-    background-size: 22px 22px;
+  .bg-wine-gradient {
+    background: linear-gradient(135deg, var(--color-wine-900) 0%, var(--color-wine-800) 100%);
   }
 }
 
@@ -39,9 +45,6 @@ html {
 
 body {
   font-family: "Manrope", sans-serif;
-  background:
-    radial-gradient(circle at top left, rgba(239, 184, 178, 0.22), transparent 28%),
-    radial-gradient(circle at top right, rgba(167, 199, 231, 0.18), transparent 24%),
-    linear-gradient(180deg, #fcfaf8 0%, #f8f5f2 34%, #ffffff 100%);
-  color: #4b5563;
+  background-color: var(--color-cream-100);
+  color: var(--color-ink-700);
 }

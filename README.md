@@ -27,7 +27,7 @@ Landing page feita em React + Vite, com TypeScript, Tailwind e animações (moti
 
 3. Abra no navegador:
 
-   - http://localhost:3000/
+   - http://localhost:3002/ (se a porta estiver ocupada, o Vite usa a próxima disponível)
 
 ## Variáveis de ambiente (opcional)
 

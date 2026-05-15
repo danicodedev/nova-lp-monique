@@ -13,7 +13,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="selection:bg-blush-200 selection:text-ink-900">
+    <div className="selection:bg-terra-200 selection:text-ink-900 bg-cream-50 text-ink-900 font-sans">
       <Navbar />
       <main id="topo">
         <Hero />

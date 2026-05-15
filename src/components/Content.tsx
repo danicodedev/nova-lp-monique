@@ -10,13 +10,13 @@ export default function Content() {
       title: "Quem sou eu e como trabalho",
       desc: "Conheça um pouco mais sobre a minha trajetória e a forma como enxergo o processo terapêutico.",
       link: "https://www.instagram.com/p/DUT3RhPEXOJ/",
-      bg: "bg-blush-100"
+      bg: "bg-cream-100"
     },
     {
       title: "O que faz uma Terapeuta Ocupacional?",
       desc: "Entenda na prática como a Terapia Ocupacional atua para promover autonomia e qualidade de vida.",
       link: "https://www.instagram.com/p/DUG52j_kTQt/",
-      bg: "bg-sage-100"
+      bg: "bg-cream-200"
     }
   ];
 
@@ -112,25 +112,25 @@ export default function Content() {
   const articles = [
     {
       tag: "Trajetória",
-      tagColor: "text-blush-400",
+      tagColor: "text-terra-500",
       title: "10 anos de prática clínica",
       desc: "Cada conquista, por menor que pareça, carrega um significado enorme. O desenvolvimento acontece com intenção, leitura clínica e respeito ao processo."
     },
     {
       tag: "Autismo",
-      tagColor: "text-sage-400",
+      tagColor: "text-wine-800",
       title: "Generalização não é automática",
       desc: "Para que uma habilidade apareça em contextos diferentes, é preciso construir treino em ambientes, pessoas e situações variadas."
     },
     {
       tag: "Planejamento",
-      tagColor: "text-mist-400",
+      tagColor: "text-terra-500",
       title: "Processo terapêutico com direção",
       desc: "O que importa é ter uma direção palpável, baseada na avaliação, nas observações e nas demandas da família."
     },
     {
       tag: "TO na prática",
-      tagColor: "text-ink-500",
+      tagColor: "text-wine-800",
       title: "A TO vai muito além do básico",
       desc: "Autonomia, coordenação, autorregulação e participação social caminham juntas. Potencializar o fazer é fortalecer o ser."
     }
@@ -140,8 +140,8 @@ export default function Content() {
     <>
       <section id="conteudo" className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
         <div className="max-w-2xl mb-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-blush-400">Conteúdo educativo</p>
-          <h2 className="mt-3 font-display text-4xl text-ink-900 md:text-5xl">Temas que Monique já aborda com clareza, afeto e profundidade.</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-terra-500">Conteúdo educativo</p>
+          <h2 className="mt-3 font-display text-4xl text-wine-900 md:text-5xl">Temas que Monique já aborda com clareza, afeto e profundidade.</h2>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2 mb-10">
@@ -154,12 +154,12 @@ export default function Content() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className={`group relative overflow-hidden rounded-[2rem] p-8 text-left shadow-card transition hover:-translate-y-1 ${reel.bg}`}
+              className={`group relative overflow-hidden rounded-[2rem] border border-cream-200 p-8 text-left shadow-card transition hover:-translate-y-1 hover:shadow-lg ${reel.bg}`}
             >
-              <div className="absolute right-6 top-6 rounded-full bg-white/50 p-3 backdrop-blur-sm transition group-hover:bg-white group-hover:scale-110">
-                <Play className="h-6 w-6 text-ink-900 fill-ink-900 ml-0.5" />
+              <div className="absolute right-6 top-6 rounded-full bg-white p-3 shadow-sm transition group-hover:bg-white group-hover:scale-110">
+                <Play className="h-6 w-6 text-terra-500 fill-terra-500 ml-0.5" />
               </div>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-ink-500 mb-4">Assistir Vídeo</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-terra-500 mb-4">Assistir Vídeo</p>
               <h3 className="text-2xl font-semibold text-ink-900">{reel.title}</h3>
               <p className="mt-4 text-base leading-7 text-ink-700 max-w-md">{reel.desc}</p>
             </motion.button>
@@ -216,7 +216,7 @@ export default function Content() {
                   <div
                     className={`pointer-events-none absolute inset-0 z-30 flex flex-col items-center justify-center gap-4 bg-black/30 text-center text-white transition-opacity duration-500 ${isReelHintVisible ? 'opacity-100' : 'opacity-0'}`}
                   >
-                    <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-600 shadow-lg shadow-emerald-600/30">
+                    <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-terra-500 shadow-lg shadow-terra-500/30">
                       <Play className="h-8 w-8 text-white fill-white ml-0.5" />
                     </div>
                     <p className="text-sm font-semibold uppercase tracking-[0.22em] drop-shadow-xl bg-black/20 px-4 py-1 rounded-full">
@@ -237,7 +237,7 @@ export default function Content() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="rounded-[2rem] bg-white p-6 shadow-card"
+              className="rounded-[2rem] bg-cream-50 border border-cream-200 p-6 shadow-card transition hover:-translate-y-0.5 hover:shadow-lg"
             >
               <p className={`text-sm font-semibold uppercase tracking-[0.22em] ${article.tagColor}`}>{article.tag}</p>
               <h3 className="mt-4 text-xl font-semibold text-ink-900">{article.title}</h3>
@@ -248,12 +248,12 @@ export default function Content() {
       </section>
 
       <section id="na-midia" className="mx-auto max-w-7xl px-6 pb-14 lg:px-8">
-        <div className="rounded-[2.25rem] border border-white/80 bg-gradient-to-br from-sand-50 via-white to-mist-100 p-8 shadow-card md:p-12">
+        <div className="rounded-[2.25rem] border border-cream-200 bg-gradient-to-br from-cream-100 to-cream-200 p-8 shadow-card md:p-12">
           <div className="grid gap-10 lg:grid-cols-[1fr_0.95fr] lg:items-center">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-mist-400">Na mídia</p>
-              <h2 className="mt-3 font-display text-4xl text-ink-900 md:text-5xl">Participação no Plantão Doutor TV</h2>
-              <p className="mt-5 max-w-xl text-base leading-7 text-ink-500 md:text-lg">
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-terra-500">Na mídia</p>
+              <h2 className="mt-3 font-display text-4xl text-wine-900 md:text-5xl">Participação no Plantão Doutor TV</h2>
+              <p className="mt-5 max-w-xl text-base leading-7 text-ink-600 md:text-lg">
                 Monique participou do Plantão Doutor TV, da Band Vale, falando sobre como a Terapia Ocupacional pode contribuir para a qualidade de vida no TEA.
               </p>
             </div>
@@ -279,7 +279,7 @@ export default function Content() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-br from-black/35 via-black/20 to-black/50" />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-600 shadow-lg shadow-emerald-600/30 transition group-hover:bg-emerald-500">
+                  <span className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-terra-500 shadow-lg shadow-terra-500/30 transition group-hover:bg-terra-400">
                     <Play className="h-8 w-8 text-white fill-white ml-0.5" />
                   </span>
                 </div>

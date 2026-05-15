@@ -26,12 +26,18 @@ export default function Process() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="rounded-[2.25rem] border border-white/80 bg-gradient-to-br from-sage-100 via-white to-blush-100 p-8 shadow-card md:p-10"
+        className="relative overflow-hidden rounded-[2.25rem] border border-wine-800 bg-wine-900 p-8 shadow-card md:p-10"
       >
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+        {/* Background Pattern */}
+        <div 
+          className="absolute inset-0 opacity-10 mix-blend-overlay"
+          style={{ backgroundImage: 'url(/imgs/bg-hero.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+        ></div>
+
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.26em] text-ink-500">Como funciona</p>
-            <h2 className="mt-3 font-display text-4xl text-ink-900">Um processo pensado para trazer clareza desde o primeiro contato.</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.26em] text-terra-400">Como funciona</p>
+            <h2 className="mt-3 font-display text-4xl text-cream-50">Um processo pensado para trazer clareza desde o primeiro contato.</h2>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -42,11 +48,11 @@ export default function Process() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="rounded-3xl bg-white/90 p-6 shadow-sm"
+                className="rounded-3xl bg-white/5 p-6 shadow-sm border border-white/10 backdrop-blur transition hover:bg-white/10 hover:-translate-y-0.5"
               >
-                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blush-400">{step.num}</p>
-                <p className="mt-4 text-lg font-semibold text-ink-900">{step.title}</p>
-                <p className="mt-2 text-sm leading-6 text-ink-500">{step.desc}</p>
+                <p className="text-sm font-semibold uppercase tracking-[0.22em] text-terra-400">{step.num}</p>
+                <p className="mt-4 text-lg font-semibold text-cream-50">{step.title}</p>
+                <p className="mt-2 text-sm leading-6 text-cream-100/70">{step.desc}</p>
               </motion.div>
             ))}
           </div>

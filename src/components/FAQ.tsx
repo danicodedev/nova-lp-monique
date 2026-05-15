@@ -30,8 +30,8 @@ export default function FAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-blush-400">Perguntas frequentes</p>
-          <h2 className="mt-3 font-display text-4xl text-ink-900 md:text-5xl">Dúvidas comuns antes do primeiro contato.</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.26em] text-terra-500">Perguntas frequentes</p>
+          <h2 className="mt-3 font-display text-4xl text-wine-900 md:text-5xl">Dúvidas comuns antes do primeiro contato.</h2>
         </motion.div>
 
         <div className="space-y-4">
@@ -42,13 +42,13 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              className="group rounded-[1.75rem] bg-white p-6 shadow-card open:bg-sand-50 transition-colors"
+              className="group rounded-[1.75rem] bg-cream-50 border border-cream-200 p-6 shadow-card open:bg-cream-100 transition-colors hover:shadow-lg"
               open={index === 0}
             >
               <summary className="flex cursor-pointer list-none items-center justify-between text-lg font-semibold text-ink-900">
                 {faq.q}
-                <span className="ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-sand-100 transition group-open:rotate-180">
-                  <ChevronDown className="h-5 w-5 text-ink-500" />
+                <span className="ml-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cream-200 transition group-open:rotate-180">
+                  <ChevronDown className="h-5 w-5 text-terra-500" />
                 </span>
               </summary>
               <p className="mt-4 text-sm leading-7 text-ink-500 pr-10">{faq.a}</p>
