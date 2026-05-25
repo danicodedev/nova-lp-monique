@@ -48,7 +48,7 @@ export default function Hero() {
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terra-500">Atendimento</p>
                 <p className="mt-2 text-sm font-semibold text-ink-900">Atendimento Presencial em</p>
                 <p className="mt-1 text-sm leading-snug text-ink-500">
-                  Alto de Pinheiros e Paulista/SP - Home Care. Atendimento <span className="sm:hidden"><br /></span><span className="hidden sm:inline"> </span><span className="whitespace-nowrap">on-line.</span>
+                  Alto de Pinheiros e Paulista/SP - Home Care e Atendimento <span className="sm:hidden"><br /></span><span className="hidden sm:inline"> </span><span className="whitespace-nowrap">on-line.</span>
                 </p>
               </div>
               <div className="min-w-0 rounded-2xl border border-cream-200 bg-cream-50 p-4">
