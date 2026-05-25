@@ -43,16 +43,20 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="min-w-0 rounded-2xl border border-cream-200 bg-cream-50 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terra-500">Atendimento</p>
                 <p className="mt-2 text-sm font-semibold text-ink-900">Atendimento Presencial em</p>
-                <p className="mt-1 text-sm leading-snug text-ink-500 break-words">Alto de Pinheiros e Paulista/SP - Home Care. Atendimento on-line.</p>
+                <p className="mt-1 text-sm leading-snug text-ink-500">
+                  Alto de Pinheiros e Paulista/SP - Home Care. Atendimento <span className="sm:hidden"><br /></span><span className="hidden sm:inline"> </span><span className="whitespace-nowrap">on-line.</span>
+                </p>
               </div>
               <div className="min-w-0 rounded-2xl border border-cream-200 bg-cream-50 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terra-500">Atuação</p>
-                <p className="mt-2 text-[13px] font-semibold leading-snug text-ink-900 break-words sm:text-sm">Transtornos do Neurodesenvolvimento</p>
-                <p className="mt-1 text-sm leading-snug text-ink-500 break-words">TEA Infância a vida adulta.</p>
+                <p className="mt-2 text-sm font-semibold leading-snug text-ink-900 break-normal hyphens-none">
+                  Transtornos do Neurodesenvolvimento
+                </p>
+                <p className="mt-1 text-sm leading-snug text-ink-500">TEA Infância a vida adulta.</p>
               </div>
             </div>
           </div>
