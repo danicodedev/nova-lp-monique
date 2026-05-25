@@ -44,15 +44,15 @@ export default function Hero() {
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-cream-200 bg-cream-50 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terra-500">Clínica</p>
-                <p className="mt-2 text-sm font-semibold text-ink-900">Clínica Bacin</p>
-                <p className="mt-1 text-sm text-ink-500">Santo André/SP</p>
+              <div className="min-w-0 rounded-2xl border border-cream-200 bg-cream-50 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terra-500">Atendimento</p>
+                <p className="mt-2 text-sm font-semibold text-ink-900">Atendimento Presencial em</p>
+                <p className="mt-1 text-sm leading-snug text-ink-500 break-words">Alto de Pinheiros e Paulista/SP - Home Care. Atendimento on-line.</p>
               </div>
-              <div className="rounded-2xl border border-cream-200 bg-cream-50 p-4">
+              <div className="min-w-0 rounded-2xl border border-cream-200 bg-cream-50 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terra-500">Atuação</p>
-                <p className="mt-2 text-sm font-semibold text-ink-900">Infância à vida adulta</p>
-                <p className="mt-1 text-sm text-ink-500">Foco leve em pediatria</p>
+                <p className="mt-2 text-[13px] font-semibold leading-snug text-ink-900 break-words sm:text-sm">Transtornos do Neurodesenvolvimento</p>
+                <p className="mt-1 text-sm leading-snug text-ink-500 break-words">TEA Infância a vida adulta.</p>
               </div>
             </div>
           </div>
@@ -69,11 +69,13 @@ export default function Hero() {
           </div>
 
           <h1 className="max-w-3xl font-display text-4xl leading-tight text-cream-50 sm:text-5xl lg:text-5xl">
-            Te ajudo a entender e regular seu sistema sensorial com acolhimento, ciência e direção clínica.
+            Integração Sensorial com precisão clínica e olhar altamente individualizado. Te ajudo com ciência, técnica e acolhimento.
           </h1>
 
           <p className="mt-6 max-w-2xl text-lg leading-8 text-cream-200 md:text-xl">
-            Monique Bacin é terapeuta ocupacional com certificação internacional ISA-CLASI, 10 anos de experiência e atuação focada em integração sensorial, autismo e neurodesenvolvimento. Um cuidado que olha além do diagnóstico e busca o que realmente faz sentido no cotidiano da família.
+            Monique Bacin é terapeuta ocupacional, certificada internacionalmente pela ISA–CLASI, com especialização em Análise do Comportamento Aplicada e Neurodesenvolvimento, e mais de 10 anos de experiência clínica em autismo.
+Uma abordagem baseada em evidências, com avaliação aprofundada e condução terapêutica estratégica, voltada à regulação, autonomia e participação real no cotidiano.
+Acompanhamento clínico especializado para famílias que buscam clareza, segurança e resultados consistentes.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -130,7 +132,7 @@ export default function Hero() {
                   <MapPin className="h-6 w-6 text-terra-500" />
                 </div>
                 <p className="text-2xl font-display font-semibold text-ink-900">SP + online</p>
-                <p className="mt-2 text-sm leading-6 text-ink-500">Atendimento em Santo André e suporte profissional online para todo o Brasil.</p>
+                <p className="mt-2 text-sm leading-6 text-ink-500">Atendimento em Alto de Pinheiros e Paulista e suporte profissional online para todo o Brasil.</p>
               </div>
             </div>
           </div>
